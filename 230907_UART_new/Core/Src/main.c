@@ -43,7 +43,6 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-
 /* USER CODE BEGIN PV */
 uint8_t rxData[10];
 /* USER CODE END PV */
@@ -51,14 +50,19 @@ uint8_t rxData[10];
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+
 void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *huart){    // when half of storage is full, it interrupt
-  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_10);
+//  HAL_UART_Receive_IT(&huart2, rxData, sizeof(rxData));
+  HAL_UART_Receive_DMA(&huart2, rxData, sizeof(rxData));
+  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_9);
 }
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){    // when it done, make interrupt disable.
-  //HAL_UART_Receive_IT(&huart2, rxData, 4);    // So we have to turn on the interrupt again.
-  HAL_UART_Receive_DMA(&huart2, rxData, 10);
-}
+//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){    // when it done, make interrupt disable.
+//  HAL_UART_Receive_IT(&huart2, rxData, sizeof(rxData));                // So we have to turn on the interrupt again.
+//  HAL_UART_Receive_DMA(&huart2, rxData, sizeof(rxData));
+//  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_9);
+//}
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -97,8 +101,9 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  //HAL_UART_Receive_IT(&huart2, rxData, 4);
-  HAL_UART_Receive_DMA(&huart2, rxData, 10);
+
+//  HAL_UART_Receive_IT(&huart2, rxData, sizeof(rxData));
+  HAL_UART_Receive_DMA(&huart2, rxData, sizeof(rxData));
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -108,8 +113,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    //HAL_UART_Receive(&huart2, rxData, 4, 100);       // rxData: pointer -> array
-
 
     HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
     HAL_Delay(200);

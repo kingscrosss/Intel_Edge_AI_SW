@@ -58,10 +58,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
   if(GPIO_Pin == GPIO_PIN_10){
       HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
   }
-  if(GPIO_Pin == GPIO_PIN_12){
-      HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+  if(GPIO_Pin == GPIO_PIN_11){
+      HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, SET);
   }
-  //HAL_Delay(20);
+  if(GPIO_Pin == GPIO_PIN_12){
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, RESET);
+    }
 }
 /* USER CODE END 0 */
 

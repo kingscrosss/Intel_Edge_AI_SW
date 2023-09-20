@@ -15,7 +15,7 @@
   *
   ******************************************************************************
   */
-// ?? Ï£ºÏÑù ?†à?? Ïß??ö∞Î©? ?ïà ?ê® ??
+// ?? Ï£ºÏÑù ?ÔøΩÔøΩ?? ÔøΩ??ÔøΩÔøΩÔøΩ? ?ÔøΩÔøΩ ?ÔøΩÔøΩ ??
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -97,11 +97,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    // while ?ï®?àò ?ì∏Í±∞Î©¥ ?ó¨Í∏∞ÏóêÎß? ?ç®?ïº?ï®.
-    // ctrl+ space
-    // F2
-//    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-//    HAL_Delay(3000);
+
+    // Toggle
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+    HAL_Delay(200);
+
+    // Write(ON/OFF)
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, RESET);    // RESET = 0
     HAL_Delay(200);
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, SET);      // SET = 1
