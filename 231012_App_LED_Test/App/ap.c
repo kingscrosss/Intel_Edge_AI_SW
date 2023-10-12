@@ -22,6 +22,6 @@ void apMain(void)
   while(1)
   {
     ledToggle(_DEF_LED_CH1);
-    delay(3000);
+    delay(500);
   }
 }

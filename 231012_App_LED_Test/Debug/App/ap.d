@@ -1,6 +1,6 @@
 App/ap.o: ../App/ap.c ../App/ap.h \
- D:/Study/STM32/231012_LED_Test/App/Inc/def.h ../Core/Inc/main.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+ D:/Workspace/GitHub/STM32/231012_App_LED_Test/App/Inc/def.h \
+ ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -25,11 +25,11 @@ App/ap.o: ../App/ap.c ../App/ap.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
- D:/Study/STM32/231012_LED_Test/App/Inc/led.h \
- D:/Study/STM32/231012_LED_Test/App/Inc/def.h \
- D:/Study/STM32/231012_LED_Test/App/Inc/delay.h
+ D:/Workspace/GitHub/STM32/231012_App_LED_Test/App/Inc/led.h \
+ D:/Workspace/GitHub/STM32/231012_App_LED_Test/App/Inc/def.h \
+ D:/Workspace/GitHub/STM32/231012_App_LED_Test/App/Inc/delay.h
 ../App/ap.h:
-D:/Study/STM32/231012_LED_Test/App/Inc/def.h:
+D:/Workspace/GitHub/STM32/231012_App_LED_Test/App/Inc/def.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -56,6 +56,6 @@ D:/Study/STM32/231012_LED_Test/App/Inc/def.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
-D:/Study/STM32/231012_LED_Test/App/Inc/led.h:
-D:/Study/STM32/231012_LED_Test/App/Inc/def.h:
-D:/Study/STM32/231012_LED_Test/App/Inc/delay.h:
+D:/Workspace/GitHub/STM32/231012_App_LED_Test/App/Inc/led.h:
+D:/Workspace/GitHub/STM32/231012_App_LED_Test/App/Inc/def.h:
+D:/Workspace/GitHub/STM32/231012_App_LED_Test/App/Inc/delay.h:
