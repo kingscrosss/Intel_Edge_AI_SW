@@ -1,0 +1,3 @@
+../App/ap.c:14:6:apInit	8	static
+../App/ap.c:21:6:HAL_GPIO_EXTI_Callback	16	static
+../App/ap.c:39:6:apMain	24	static
