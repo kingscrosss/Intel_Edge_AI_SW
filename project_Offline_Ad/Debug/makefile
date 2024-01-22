@@ -60,8 +60,8 @@ all: main-build
 main-build: project_Offline_Ad.elf secondary-outputs
 
 # Tool invocations
-project_Offline_Ad.elf project_Offline_Ad.map: $(OBJS) $(USER_OBJS) D:\Study\STM32\project_Offline_Ad\STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "project_Offline_Ad.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Study\STM32\project_Offline_Ad\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project_Offline_Ad.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+project_Offline_Ad.elf project_Offline_Ad.map: $(OBJS) $(USER_OBJS) D:\Workspaces\ARM\project_Offline_Ad\STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "project_Offline_Ad.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Workspaces\ARM\project_Offline_Ad\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="project_Offline_Ad.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -18,9 +18,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
-#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -46,19 +47,80 @@
 
 /* USER CODE BEGIN PV */
 typedef struct Fan{
-	uint8_t DC_State;
-	uint8_t Servo_State;
+    uint8_t Tracking_flag;  // init = 0
+    uint8_t DC_State;       // 0
+    int16_t DC_speed;       // 0? 500?
+    uint8_t Servo_State;    // 0
+    int16_t Servo_loc;      // 50
 }fan;
 
+// UART
+uint8_t rxData;
+
 // Servo Motor
-	static uint8_t rot = 50;		// Init location
+//static uint8_t rot = 50;		// Init location
+static uint8_t Tracking_flag =0;
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+  uint8_t DC_cap = 100;
+  uint8_t Servo_cap = 10;
+  int16_t DC_speed = TIM3->CCR1;
+  int16_t Servo_loc = TIM3->CCR2;
 
+  if(huart->Instance==USART2){
+    HAL_UART_Transmit_IT(&huart2, &rxData, sizeof(rxData));
+
+    if(rxData == 'q')   // Stop
+    {
+      TIM3->CCR1 = 0;
+//      TIM3->CCR2 = Servo_loc;
+//      Tracking_flag = 0;
+    }
+    else if(rxData == 'e')      // FAN(DC) restart
+    {
+      TIM3->CCR1 = 500;
+//      TIM3->CCR2 = Servo_loc;
+      Tracking_flag = !Tracking_flag;
+
+    }
+    else if(rxData == 'w')      // FAN(DC) speed increse
+    {
+      DC_speed += DC_cap;
+      if(DC_speed > 1000){
+        DC_speed = 999;
+      }
+      TIM3->CCR1 = DC_speed;
+    }
+    else if(rxData == 's'){
+      DC_speed -= DC_cap;
+      if(DC_speed <= 0){
+        DC_speed = 0;
+      }
+      TIM3->CCR1 = DC_speed;
+    }
+    else if(rxData == 'a'){
+      Servo_loc += Servo_cap;
+      if(Servo_loc >= 250){
+        Servo_loc = 250;
+      }
+      TIM3->CCR2 = Servo_loc;
+    }
+    else if(rxData == 'd'){
+      Servo_loc -= Servo_cap;
+      if(Servo_loc <= 50){
+        Servo_loc = 50;
+      }
+      TIM3->CCR2 = Servo_loc;
+    }
+
+    HAL_UART_Receive_IT(&huart2, &rxData, sizeof(rxData));
+  }
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -96,18 +158,25 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_TIM3_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   // Motor
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1); // DC motor
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2); // servo motor
 
+  // UART
+  HAL_UART_Receive_IT(&huart2, &rxData, sizeof(rxData));
+//  HAL_UART_Transmit_DMA(&huart2, txData, sizeof(txData));
+
   // CCR
   TIM3->CCR1 = 0;
-  TIM3->CCR2 = 0;
+  TIM3->CCR2 = 50;
   HAL_Delay(1000);
   // DC(FAN) Start
-  TIM3->CCR1 = 700;
+  TIM3->CCR1 = 500;
+  Tracking_flag = 1;
 
   /* USER CODE END 2 */
 
@@ -119,11 +188,16 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
   	// Servo
-  	TIM3->CCR2 = i;
-  	if(i<=50) dir=1;
-  	if(i>=250) dir=-1;
-  	i += dir*1;
-//  	printf("i: %d, dir=%d", i, dir);
+    if(Tracking_flag){
+      TIM3->CCR1 = 500;
+      TIM3->CCR2 = i;
+      if(i<=50) dir=1;
+      if(i>=250) dir=-1;
+      i += dir*1;
+    }
+
+
+    HAL_Delay(10);
 
 
   }
