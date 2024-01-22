@@ -1,0 +1,6 @@
+../Core/Src/main.c:81:6:FAN_Init	88	static
+../Core/Src/main.c:91:6:HAL_GPIO_EXTI_Callback	96	static
+../Core/Src/main.c:145:6:HAL_TIM_PeriodElapsedCallback	16	static
+../Core/Src/main.c:172:5:main	128	static
+../Core/Src/main.c:263:6:SystemClock_Config	88	static
+../Core/Src/main.c:312:6:Error_Handler	4	static,ignoring_inline_asm
